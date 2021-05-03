@@ -2,7 +2,7 @@
   <div class="totalSale">
     <common-card title="累计订单量" value="3,509,068">
       <template>
-        <v-chart :options="getOptions()" />
+        <v-chart :option="getOptions()" />
       </template>
       <template v-slot:footer>
         <span>昨日订单量 </span>
@@ -16,7 +16,9 @@
 <script>
 import commonCardMixin from "../../mixins/commonCardMixin";
 export default {
+  name: "TotalOrders",
   mixins: [commonCardMixin],
+  components: {},
   methods: {
     getOptions() {
       return {
@@ -43,15 +45,15 @@ export default {
               532,
               320,
               834,
-              698,
+              690,
               530,
               220,
               620,
             ],
+            smooth: true,
             areaStyle: {
               color: "purple",
             },
-            smooth: true,
             lineStyle: {
               width: 0,
             },
@@ -69,12 +71,8 @@ export default {
       };
     },
   },
-  mounted() {
-    console.log(this.getOptions());
-  },
 };
 </script>
-
 
 <style>
 </style>
