@@ -1,32 +1,12 @@
 <template>
-  <ve-line :data="data" />
+  <div>abc</div>
 </template>
 
 
 <script>
-export default {
-  data() {
-    return {
-      data: {
-        columns: ["日期", "销售额"],
-        rows: [
-          { 日期: "1月1日", 销售额: 123 },
-          { 日期: "1月1日", 销售额: 123 },
-          { 日期: "1月1日", 销售额: 123 },
-          { 日期: "1月1日", 销售额: 123 },
-          { 日期: "1月1日", 销售额: 123 },
-          { 日期: "1月1日", 销售额: 123 },
-        ],
-      },
-    };
-  },
-};
+export default {};
 </script>
 
 
-<style lang="scss" scoped>
-.echarts {
-  width: 100%;
-  height: 100%;
-}
+<style>
 </style>
