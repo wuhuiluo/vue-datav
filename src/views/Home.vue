@@ -2,10 +2,12 @@
   <div class="home">
     <top-view />
     <sales-view />
+    <bottom-view />
   </div>
 </template>
 
 <script>
+import BottomView from "../components/BottomView/BottomView.vue";
 import SalesView from "../components/SalesView/index";
 import TopView from "../components/TopView";
 export default {
@@ -13,9 +15,11 @@ export default {
   components: {
     TopView,
     SalesView,
+    BottomView,
   },
 };
 </script>
+    BottomView
 <style lang="scss">
 .home {
   width: 100%;
