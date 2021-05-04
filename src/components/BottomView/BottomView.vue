@@ -21,9 +21,18 @@
             </div>
             <div class="table-wrapper">
               <el-table :data="tableData">
-                <el-table-column />
+                <el-table-column prop="rank" label="排名" width="180" />
+                <el-table-column prop="keyword" label="关键字" width="180" />
+                <el-table-column prop="count" label="搜索量" width="180" />
+                <el-table-column prop="users" label="搜索用户数" />
               </el-table>
-              <el-pagination />
+              <el-pagination
+                :total="100"
+                :page-size="4"
+                layout="prev,pager,next"
+                background
+                @current-change="onPageChange"
+              />
             </div>
           </div>
         </template>
@@ -43,7 +52,9 @@
           </div>
         </template>
         <template>
-          <v-chart :option="categoryOption" />
+          <div class="chart-wrapper">
+            <v-chart :option="categoryOption" />
+          </div>
         </template>
       </el-card>
     </div>
@@ -91,8 +102,46 @@ export default {
       },
       categoryOption: {},
       radioSelect: "品类",
-      tableData: [],
+      tableData: [
+        {
+          id: 1,
+          rank: 1,
+          keyword: "北京",
+          count: 100,
+          users: 90,
+          range: "90%",
+        },
+        {
+          id: 1,
+          rank: 1,
+          keyword: "北京",
+          count: 100,
+          users: 90,
+          range: "90%",
+        },
+        {
+          id: 1,
+          rank: 1,
+          keyword: "北京",
+          count: 100,
+          users: 90,
+          range: "90%",
+        },
+        {
+          id: 1,
+          rank: 1,
+          keyword: "北京",
+          count: 100,
+          users: 90,
+          range: "90%",
+        },
+      ],
     };
+  },
+  methods: {
+    onPageChange(page) {
+      console.log(page);
+    },
   },
 };
 </script>
@@ -155,7 +204,17 @@ export default {
           }
         }
       }
+      .table-wrapper {
+        flex: 1;
+        margin-top: 20px;
+        padding: 0 20px 20px 0;
+      }
     }
   }
+}
+.el-pagination {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
 }
 </style>
