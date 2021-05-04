@@ -142,15 +142,62 @@ export default {
     onPageChange(page) {
       console.log(page);
     },
+    renderPieChart() {
+      const mockData = [
+        {
+          legendname: "粉面粥店",
+          value: 67,
+          percent: "15.4%",
+        },
+        {
+          legendname: "简餐便当",
+          value: 97,
+          percent: "22.30%",
+        },
+        {
+          legendname: "汉堡披萨",
+          value: 92,
+          percent: "21.15%",
+        },
+      ];
+      this.categoryOption = {
+        title: [
+          {
+            text: "品类分布",
+            textStyle: {
+              fontSize: 14,
+              color: "#666",
+            },
+            left: 20,
+            top: 20,
+          },
+        ],
+        series: [
+          {
+            type: "pie",
+            data: mockData,
+            label: {
+              normal: {
+                show: true,
+                position: "outter",
+                formatter: function (params) {
+                  return params.data.legendname;
+                },
+              },
+            },
+          },
+        ],
+      };
+    },
+  },
+  mounted() {
+    this.renderPieChart();
   },
 };
 </script>
 
 
 <style lang="scss" scoped>
-.echarts {
-  height: 50px;
-}
 .bottom-view {
   display: flex;
   margin-top: 20px;
@@ -191,6 +238,9 @@ export default {
         .chart {
           flex: 1;
           padding: 0 10px;
+          .echarts {
+            height: 50px;
+          }
           .chart-title {
             color: #999;
             font-size: 14px;
