@@ -1,6 +1,6 @@
 <template>
   <div class="sales-view">
-    <el-card shadow="hover">
+    <el-card shadow="hover" :body-style="{ padding: '0 0 20px 0' }">
       <template v-slot:header>
         <div class="menu-wrapper">
           <el-menu
@@ -35,14 +35,17 @@
       </template>
       <template>
         <div class="sales-view-chart-wrapper">
-          <v-chart :options="chartOption" />
-          <div class="sales-view list">
-            <div v-for="item in rankData" :key="item.no" class="list-item">
-              <div :class="['list-item-no', +item.no <= 3 ? 'top-no' : '']">
-                {{ item.no }}
+          <v-chart :option="chartOption" />
+          <div class="sales-view-list">
+            <div class="list-item-title">排行榜</div>
+            <div class="list-item-wrapper">
+              <div v-for="item in rankData" :key="item.no" class="list-item">
+                <div :class="['list-item-no', +item.no <= 3 ? 'top-no' : '']">
+                  {{ item.no }}
+                </div>
+                <div class="list-item-name">{{ item.name }}</div>
+                <div class="list-item-money">{{ item.money }}</div>
               </div>
-              <div class="list-item-name">{{ item.naem }}</div>
-              <div class="list-item-money">{{ item.money }}</div>
             </div>
           </div>
         </div>
@@ -90,7 +93,76 @@ export default {
           },
         ],
       },
-      chartOption: {},
+      chartOption: {
+        color: ["#3398DB"],
+        title: {
+          text: "年度销售额",
+          textStyle: {
+            fontSize: 12,
+            color: "#666",
+          },
+          left: 25,
+          top: 20,
+        },
+        xAxis: {
+          type: "category",
+          data: [
+            "1月",
+            "2月",
+            "3月",
+            "4月",
+            "5月",
+            "6月",
+            "7月",
+            "8月",
+            "9月",
+            "10月",
+            "11月",
+            "12月",
+          ],
+          axisTick: {
+            alignWithLabel: true,
+            lineStyle: {
+              color: "#999",
+            },
+          },
+          axisLine: {
+            lineStyle: {
+              color: "#999",
+            },
+          },
+          axisLabel:{
+            color: '#333'
+          }
+        },
+        yAxis: {
+          axisLine: {
+            show: false,
+          },
+          axisTick: {
+            show: false,
+          },
+          splitLine: {
+            lineStyle: {
+              type: "dotted",
+              color: "#eee",
+            },
+          },
+        },
+        series: [
+          {
+            type: "bar",
+            barWidth: "35%",
+            data: [200, 250, 300, 350, 200, 250, 300, 350, 200, 250, 300, 350],
+          },
+        ],
+        grid: {
+          top: 70,
+          left: 60,
+          right: 60,
+          bottom: 50,
+        },
+      },
       rankData: [
         {
           no: 1,
@@ -165,6 +237,60 @@ export default {
       justify-content: center;
       .sales-view-date-picker {
         margin-left: 20px;
+      }
+    }
+  }
+  .sales-view-chart-wrapper {
+    display: flex;
+    height: 270px;
+    .echarts {
+      flex: 0 0 70%;
+      width: 70%;
+      height: 100%;
+    }
+    .sales-view-list {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin-top: 15px;
+      .list-item-title {
+        margin-top: 5px;
+        font-size: 12px;
+        color: #666;
+        font-weight: 500;
+      }
+      .list-item-wrapper {
+        margin-top: 15px;
+        .list-item {
+          align-items: center;
+          font-size: 12px;
+          height: 20px;
+          padding: 6px 20px 6px 0;
+          display: flex;
+          .list-item-no {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            color: #333;
+            &.top-no {
+              background: #000;
+              border-radius: 50%;
+              color: #fff;
+              font-weight: 500;
+            }
+          }
+          .list-item-name {
+            margin-left: 10px;
+            color: #333;
+          }
+          .list-item-money {
+            flex: 1;
+            text-align: right;
+          }
+        }
       }
     }
   }
