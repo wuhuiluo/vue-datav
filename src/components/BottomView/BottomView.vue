@@ -147,26 +147,29 @@ export default {
         {
           legendname: "粉面粥店",
           value: 67,
-          percent: "15.4%",
+          percent: "15.4",
           itemStyle: {
             color: "#e7e702",
           },
+          name: "粉面粥店 | 15.4%",
         },
         {
           legendname: "简餐便当",
           value: 97,
-          percent: "22.30%",
+          percent: "22.30",
           itemStyle: {
             color: "#8d7fec",
           },
+          name: "简餐便当 | 22.3%",
         },
         {
           legendname: "汉堡披萨",
           value: 92,
-          percent: "21.15%",
+          percent: "21.15",
           itemStyle: {
             color: "#5085f2",
           },
+          name: "汉堡披萨 | 21.15%",
         },
       ];
       this.categoryOption = {
@@ -198,6 +201,7 @@ export default {
         ],
         series: [
           {
+            name: "品类分布",
             type: "pie",
             data: mockData,
             label: {
@@ -207,15 +211,36 @@ export default {
               },
             },
             labelLine: {
-              length: 5,
-              length2: 3,
+              length: 15,
+              length2: 20,
               smooth: true,
             },
             center: ["34%", "50%"],
             radius: ["45%", "60%"],
             clockwise: true,
+            itemStyle: {
+              borderWidth: 4,
+              borderColor: "#fff",
+            },
           },
         ],
+        legend: {
+          type: "scroll",
+          orient: "vertical",
+          height: 250,
+          left: "70%",
+          top: "middle",
+          textStyle: {
+            color: "#8c8c8c",
+          },
+        },
+        tooltip: {
+          trigger: "item",
+          formatter: function (params) {
+            const str = `${params.seriesName}<br />${params.marker}${params.data.legendname}<br />数量：${params.data.value}<br />占比：${params.data.percent}%`;
+            return str;
+          },
+        },
       };
     },
   },
