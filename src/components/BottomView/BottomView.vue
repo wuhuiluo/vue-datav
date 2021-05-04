@@ -148,16 +148,25 @@ export default {
           legendname: "粉面粥店",
           value: 67,
           percent: "15.4%",
+          itemStyle: {
+            color: "#e7e702",
+          },
         },
         {
           legendname: "简餐便当",
           value: 97,
           percent: "22.30%",
+          itemStyle: {
+            color: "#8d7fec",
+          },
         },
         {
           legendname: "汉堡披萨",
           value: 92,
           percent: "21.15%",
+          itemStyle: {
+            color: "#5085f2",
+          },
         },
       ];
       this.categoryOption = {
@@ -171,20 +180,40 @@ export default {
             left: 20,
             top: 20,
           },
+          {
+            text: "累计订单量",
+            subtext: "320",
+            x: "33.5%",
+            y: "46.5%",
+            textAlign: "center",
+            textStyle: {
+              fontSize: 14,
+              color: "#999",
+            },
+            subtextStyle: {
+              fontSize: 20,
+              color: "#333",
+            },
+          },
         ],
         series: [
           {
             type: "pie",
             data: mockData,
             label: {
-              normal: {
-                show: true,
-                position: "outter",
-                formatter: function (params) {
-                  return params.data.legendname;
-                },
+              show: true,
+              formatter: function (params) {
+                return params.data.legendname;
               },
             },
+            labelLine: {
+              length: 5,
+              length2: 3,
+              smooth: true,
+            },
+            center: ["34%", "50%"],
+            radius: ["45%", "60%"],
+            clockwise: true,
           },
         ],
       };
