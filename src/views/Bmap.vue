@@ -571,9 +571,11 @@ export default {
           name: "Top 2",
           type: "effectScatter",
           coordinateSystem: "bmap",
-          data: convertData(data).sort((a, b) => {
-            return b.value - a.value;
-          }),
+          data: convertData(data)
+            .sort((a, b) => {
+              return b.value[2] - a.value[2];
+            })
+            .slice(0, 10),
           symbolSize: function (val) {
             return val[2] / 10;
           },
