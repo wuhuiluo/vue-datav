@@ -1,1 +1,4 @@
-import VELine from 
+import VELine from 'v-charts/lib/line.common'
+import Vue from 'vue'
+
+Vue.component('ve-lin')
