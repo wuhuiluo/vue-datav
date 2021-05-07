@@ -9,7 +9,9 @@
           <div class="title">用户月同比增长</div>
         </template>
         <template>
-          <div class="chart-wrapper">111</div>
+          <div class="chart-wrapper">
+            <liquid-fill />
+          </div>
         </template>
       </el-card>
       <el-card shadow="hover">
@@ -26,10 +28,12 @@
 
 
 <script>
+import LiquidFill from "../LiquidFill/index";
 import Bmap from "../Map/Bmap";
 export default {
   components: {
     Bmap,
+    LiquidFill,
   },
 };
 </script>
@@ -62,8 +66,8 @@ export default {
       padding: 0 0 0 20px;
     }
     .chart-wrapper {
-        width: 100%;
-        height: 190px;
+      width: 100%;
+      height: 190px;
     }
   }
 }
