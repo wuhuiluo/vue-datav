@@ -607,7 +607,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .echarts {
-  height: 700px;
+  height: 600px;
 }
 </style>
 

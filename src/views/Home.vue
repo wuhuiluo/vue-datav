@@ -3,6 +3,7 @@
     <top-view />
     <sales-view />
     <bottom-view />
+    <map-view />
   </div>
 </template>
 
@@ -10,12 +11,14 @@
 import BottomView from "../components/BottomView/BottomView.vue";
 import SalesView from "../components/SalesView/index";
 import TopView from "../components/TopView";
+import MapView from "../components/MapView/index";
 export default {
   name: "Home",
   components: {
     TopView,
     SalesView,
     BottomView,
+    MapView,
   },
 };
 </script>
@@ -23,7 +26,6 @@ export default {
 <style lang="scss">
 .home {
   width: 100%;
-  height: 100%;
   background: #eee;
   padding: 20px;
   box-sizing: border-box;
