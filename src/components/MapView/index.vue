@@ -3,7 +3,24 @@
     <div class="left">
       <Bmap />
     </div>
-    <div class="right"></div>
+    <div class="right">
+      <el-card shadow="hover">
+        <template v-slot:header>
+          <div class="title">用户月同比增长</div>
+        </template>
+        <template>
+          <div class="chart-wrapper">111</div>
+        </template>
+      </el-card>
+      <el-card shadow="hover">
+        <template v-slot:header>
+          <div class="title">热门搜索</div>
+        </template>
+        <template>
+          <div class="chart-wrapper">111</div>
+        </template>
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -27,6 +44,27 @@ export default {
     width: 80%;
     height: 600px;
     background: #fff;
+  }
+  .right {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 20px;
+    .title {
+      display: flex;
+      align-items: center;
+      height: 60px;
+      box-sizing: border-box;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      font-weight: 50;
+      padding: 0 0 0 20px;
+    }
+    .chart-wrapper {
+        width: 100%;
+        height: 190px;
+    }
   }
 }
 </style>

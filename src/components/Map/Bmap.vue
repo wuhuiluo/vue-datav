@@ -416,12 +416,13 @@ export default {
         subtext: "趋势销售统计",
         sublink: "https://www.imooc.com",
         left: "center",
+        top: 10
       },
       bmap: {
         key: "G1LFyjrNGIkns5OfpZnrCGAKxpycPLwb",
         center: [104.114129, 37.550339],
         zoom: 5,
-        roam: true,
+        roam: false,
         mapStyle: {
           styleJson: [
             {
