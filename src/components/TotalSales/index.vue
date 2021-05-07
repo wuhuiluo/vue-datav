@@ -17,6 +17,7 @@
       </template>
       <template v-slot:footer>
         <span>昨日销售额 </span> <span class="emphsis"> ￥ 3000000 </span>
+        <span>{{ reportData }}</span>
       </template>
     </common-card>
   </div>
@@ -25,8 +26,9 @@
 
 <script>
 import commonCardMixin from "../../mixins/commonCardMixin";
+import commonDataMixin from "../../mixins/commonDataMixin";
 export default {
-  mixins: [commonCardMixin],
+  mixins: [commonCardMixin, commonDataMixin],
 };
 </script>
 

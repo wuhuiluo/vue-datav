@@ -12,7 +12,11 @@ import BottomView from "../components/BottomView/BottomView.vue";
 import SalesView from "../components/SalesView/index";
 import TopView from "../components/TopView";
 import MapView from "../components/MapView/index";
-import { wordcloudRequest } from "../util/index";
+import {
+  wordcloudRequest,
+  screenDataRequest,
+  mapScatterRequest,
+} from "../util/index";
 export default {
   name: "Home",
   data() {
@@ -22,14 +26,38 @@ export default {
       mapData: null,
     };
   },
+  provide() {
+    return {
+      getReportData: this.getReportData,
+      getMapData: this.getMapData,
+      getWordData: thisgetWordData,
+    };
+  },
   components: {
     TopView,
     SalesView,
     BottomView,
     MapView,
   },
-  mounted() {
-    wordcloudRequest();
+  async mounted() {
+    const WordCloudData = await wordcloudRequest();
+    const ScreenData = await screenDataRequest();
+    const MapScatterData = await mapScatterRequest();
+    console.log(WordCloudData);
+    this.reportData = ScreenData;
+    this.mapData = MapScatterData;
+    this.wordCloud = WordCloudData;
+  },
+  methods: {
+    getReportData() {
+      return this.reportData;
+    },
+    getMapData() {
+      return this.mapData;
+    },
+    getWordData() {
+      return this.mapData;
+    },
   },
 };
 </script>

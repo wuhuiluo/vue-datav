@@ -6,6 +6,7 @@ const service = axios.create({
 
 
 service.interceptors.response.use(response => {
+    console.log(response.data);
     if (response.status === 200 && response.data) {
         return response.data
     } else {
