@@ -12,6 +12,7 @@ import BottomView from "../components/BottomView/BottomView.vue";
 import SalesView from "../components/SalesView/index";
 import TopView from "../components/TopView";
 import MapView from "../components/MapView/index";
+import { wordcloud } from "../util/index";
 export default {
   name: "Home",
   components: {
@@ -19,6 +20,9 @@ export default {
     SalesView,
     BottomView,
     MapView,
+  },
+  mounted() {
+    wordcloud();
   },
 };
 </script>
