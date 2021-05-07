@@ -3,7 +3,7 @@
           config
               .plugin('html')
               .tap(args => {
-                  args[0].title = '慕课网数据可视化 - 数据报表'
+                  args[0].title = '吴辉洛的 - 数据报表'
                   return args
               })
       },
@@ -13,6 +13,7 @@
           port: 8081,
           https: false,
           open: true,
+          disableHostCheck: true,
           proxy: {
               '/screen': {
                   target: 'https://book.youbaobao.xyz:18082/screen',

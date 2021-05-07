@@ -9,27 +9,27 @@ export default {
   mounted() {
     const data = [
       {
-        name: "慕课网",
+        name: "太对了哥",
         value: 100 * Math.random(),
       },
       {
-        name: "数据可视化",
+        name: "123",
         value: 100 * Math.random(),
       },
       {
-        name: "sam",
+        name: "whl",
         value: 100 * Math.random(),
       },
       {
-        name: "慕课网2",
+        name: "6666",
         value: 100 * Math.random(),
       },
       {
-        name: "数据可视化4",
+        name: "123",
         value: 100 * Math.random(),
       },
       {
-        name: "sam5",
+        name: "141",
         value: 100 * Math.random(),
       },
     ];

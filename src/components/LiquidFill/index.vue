@@ -16,7 +16,7 @@ function getColor(value) {
 }
 export default {
   mounted() {
-    const data = [0.87];
+    const data = [0.45];
     const chart = this.$echarts.init(document.getElementById("container"));
     chart.setOption({
       series: [
