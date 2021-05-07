@@ -15,6 +15,13 @@ import MapView from "../components/MapView/index";
 import { wordcloud } from "../util/index";
 export default {
   name: "Home",
+  data() {
+    return {
+      reportData: null,
+      wordCloud: null,
+      mapData: null,
+    };
+  },
   components: {
     TopView,
     SalesView,

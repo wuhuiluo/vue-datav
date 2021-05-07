@@ -8,7 +8,7 @@ export function screenDataRequest() {
     })
 }
 
-export function wordcloud() {
+export function wordcloudRequest() {
     return request({
         url: '/screen/wordcloud',
         method: 'get',
