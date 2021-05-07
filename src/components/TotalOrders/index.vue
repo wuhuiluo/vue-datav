@@ -1,12 +1,12 @@
 <template>
   <div class="totalSale">
-    <common-card title="累计订单量" value="3,509,068">
+    <common-card title="累计订单量" :value="orderToday">
       <template>
         <v-chart :option="getOptions()" />
       </template>
       <template v-slot:footer>
         <span>昨日订单量 </span>
-        <span class="emphsis">2,000,000</span>
+        <span class="emphsis">{{ orderLastDay }}</span>
       </template>
     </common-card>
   </div>
@@ -15,60 +15,47 @@
 
 <script>
 import commonCardMixin from "../../mixins/commonCardMixin";
+import commonDataMixin from "../../mixins/commonDataMixin";
 export default {
   name: "TotalOrders",
-  mixins: [commonCardMixin],
+  mixins: [commonCardMixin, commonDataMixin],
   components: {},
   methods: {
     getOptions() {
-      return {
-        xAxis: {
-          type: "category",
-          show: false,
-          boundaryGap: false,
-        },
-        yAxis: {
-          show: false,
-        },
-        series: [
-          {
-            type: "line",
-            data: [
-              620,
-              432,
-              220,
-              534,
-              790,
-              430,
-              220,
-              320,
-              532,
-              320,
-              834,
-              690,
-              530,
-              220,
-              620,
+      return this.orderTrend.length > 0
+        ? {
+            xAxis: {
+              type: "category",
+              show: false,
+              boundaryGap: false,
+            },
+            yAxis: {
+              show: false,
+            },
+            series: [
+              {
+                type: "line",
+                data: this.orderTrend,
+                smooth: true,
+                areaStyle: {
+                  color: "purple",
+                },
+                lineStyle: {
+                  width: 0,
+                },
+                itemStyle: {
+                  opacity: 0,
+                },
+              },
             ],
-            smooth: true,
-            areaStyle: {
-              color: "purple",
+            grid: {
+              top: 0,
+              bottom: 0,
+              right: 0,
+              left: 0,
             },
-            lineStyle: {
-              width: 0,
-            },
-            itemStyle: {
-              opacity: 0,
-            },
-          },
-        ],
-        grid: {
-          top: 0,
-          bottom: 0,
-          right: 0,
-          left: 0,
-        },
-      };
+          }
+        : null;
     },
   },
 };

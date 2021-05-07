@@ -30,7 +30,7 @@ export default {
     return {
       getReportData: this.getReportData,
       getMapData: this.getMapData,
-      getWordData: thisgetWordData,
+      getWordData: this.getWordData,
     };
   },
   components: {
@@ -56,7 +56,7 @@ export default {
       return this.mapData;
     },
     getWordData() {
-      return this.mapData;
+      return this.wordCloud;
     },
   },
 };
