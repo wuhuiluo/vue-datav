@@ -412,7 +412,7 @@ export default {
   mounted() {
     this.options = {
       title: {
-        text: "慕课销售数据大盘",
+        text: "My Map",
         subtext: "趋势销售统计",
         sublink: "https://www.imooc.com",
         left: "center",

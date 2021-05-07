@@ -19,7 +19,9 @@
           <div class="title">热门搜索</div>
         </template>
         <template>
-          <div class="chart-wrapper">111</div>
+          <div class="chart-wrapper">
+            <word-cloud />
+          </div>
         </template>
       </el-card>
     </div>
@@ -30,10 +32,12 @@
 <script>
 import LiquidFill from "../LiquidFill/index";
 import Bmap from "../Map/Bmap";
+import WordCloud from "../WordCloud/index";
 export default {
   components: {
     Bmap,
     LiquidFill,
+    WordCloud,
   },
 };
 </script>
