@@ -4,6 +4,10 @@ function format(v) {
     return `${v}`.replace(reg, '$&,')
 }
 
+function wrapperOriginNumber(o, k) {
+    return o && o[k] ? o[k] : 0
+}
+
 function wrapperArray(o, k) {
     return o && o[k] ? o[k] : []
 }
@@ -56,6 +60,21 @@ export default {
         },
         orderUserTrendAxis() {
             return wrapperArray(this.reportData, 'orderUserTrendAxis')
+        },
+        userLastMonth() {
+            return wrapperOriginNumber(this.reportData, 'userLastMonth')
+        },
+        userTodayNumber() {
+            return wrapperOriginNumber(this.reportData, 'userToday')
+        },
+        userToday() {
+            return wrapperNumber(this.reportData, 'userToday')
+        },
+        userGrowthLastDay() {
+            return wrapperPercentage(this.reportData, 'userGrowthLastDay')
+        },
+        userGrowthLastMonth() {
+            return wrapperPercentage(this.reportData, 'userGrowthLastMonth')
         }
     },
     inject: ["getReportData", "getWordData", "getMapData"],
