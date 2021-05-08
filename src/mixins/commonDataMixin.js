@@ -4,6 +4,20 @@ function format(v) {
     return `${v}`.replace(reg, '$&,')
 }
 
+function wrapperObject(o, k) {
+    if (o && k.indexOf('.') > 0) {
+        const keys = k.split('.')
+        console.log(keys);
+        keys.forEach(key => {
+            o = o[key]
+        })
+        console.log(o);
+        return o
+    } else {
+        return o && o[k] ? o[k] : {}
+    }
+}
+
 function wrapperOriginNumber(o, k) {
     return o && o[k] ? o[k] : 0
 }
@@ -24,6 +38,11 @@ function wrapperPercentage(o, k) {
     return o && o[k] ? `${(o[k] / 100).toFixed(2)}%` : '0%'
 }
 export default {
+    methods: {
+        format(v) {
+            return format(v)
+        }
+    },
     computed: {
         reportData() {
             return this.getReportData();
@@ -96,6 +115,12 @@ export default {
         },
         wordCloud() {
             return this.getWordData()
+        },
+        category1() {
+            return wrapperObject(this.reportData, 'category.data1')
+        },
+        category2() {
+            return wrapperObject(this.reportData, 'category.data2')
         }
     },
     inject: ["getReportData", "getWordData", "getMapData"],

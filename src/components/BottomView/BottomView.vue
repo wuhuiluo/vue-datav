@@ -16,7 +16,7 @@
               <div class="chart">
                 <div class="chart-title">搜索量</div>
                 <div class="chart-data">{{ userCount }}</div>
-                <v-chart :option="searchUserOption" />
+                <v-chart :option="searchNumberOption" />
               </div>
             </div>
             <div class="table-wrapper">
@@ -65,6 +65,15 @@
 
 <script>
 import commonDataMixin from "../../mixins/commonDataMixin";
+
+const colors = [
+  "#8d7fec",
+  "#5085f2",
+  "#f8726b",
+  "#e7e702",
+  "#78f283",
+  "#4bc1fc",
+];
 export default {
   mixins: [commonDataMixin],
   data() {
@@ -74,39 +83,7 @@ export default {
       total: 0,
       pageSize: 4,
       searchNumberOption: {},
-      searchUserOption: {
-        xAxis: {
-          type: "category",
-          boundaryGap: false,
-        },
-        yAxis: {
-          show: false,
-          min: 0,
-          max: 300,
-        },
-        series: [
-          {
-            type: "line",
-            areaStyle: {
-              color: "rgba(95,187,255,.5)",
-            },
-            data: [100, 150, 200, 250, 200, 150, 150, 150],
-            lineStyle: {
-              color: "rgba(95,187,255)",
-            },
-            itemStyle: {
-              opacity: 0,
-            },
-            smooth: true,
-          },
-        ],
-        grid: {
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-        },
-      },
+      searchUserOption: {},
       totalData: [],
       categoryOption: {},
       radioSelect: "品类",
@@ -114,6 +91,9 @@ export default {
     };
   },
   watch: {
+    category1() {
+      this.renderPieChart();
+    },
     wordCloud() {
       const totalData = [];
       this.wordCloud.forEach((item, index) => {
@@ -128,9 +108,14 @@ export default {
       });
       this.totalData = totalData;
       this.total = this.totalData.length;
-      this.userCount = totalData.reduce((prev, next) => prev + next.users, 0);
-      this.searchCount = totalData.reduce((prev, next) => prev + next.count, 0);
+      this.userCount = this.format(
+        totalData.reduce((prev, next) => prev + next.users, 0)
+      );
+      this.searchCount = this.format(
+        totalData.reduce((prev, next) => prev + next.count, 0)
+      );
       this.renderTable(1);
+      this.renderLineChart();
     },
   },
   methods: {
@@ -138,39 +123,35 @@ export default {
       this.renderTable(page);
     },
     renderPieChart() {
-      const mockData = [
-        {
-          legendname: "粉面粥店",
-          value: 67,
-          percent: "15.4",
+      let data;
+      let axis;
+      let total = 0;
+      if (this.radioSelect === "品类") {
+        data = this.category1.data1.slice(0, 6);
+        axis = this.category1.axisX.slice(0, 6);
+        total = data.reduce((prev, next) => prev + next, 0);
+      } else {
+        data = this.category2.data1.slice(0, 6);
+        axis = this.category2.axisX.slice(0, 6);
+        total = data.reduce((prev, next) => prev + next, 0);
+      }
+      const chartData = [];
+      data.forEach((item, index) => {
+        const percent = `${((item / total) * 100).toFixed(2)}%`;
+        chartData.push({
+          legendname: axis[index],
+          value: item,
+          percent,
           itemStyle: {
-            color: "#e7e702",
+            color: colors[index],
           },
-          name: "粉面粥店 | 15.4%",
-        },
-        {
-          legendname: "简餐便当",
-          value: 97,
-          percent: "22.30",
-          itemStyle: {
-            color: "#8d7fec",
-          },
-          name: "简餐便当 | 22.3%",
-        },
-        {
-          legendname: "汉堡披萨",
-          value: 92,
-          percent: "21.15",
-          itemStyle: {
-            color: "#5085f2",
-          },
-          name: "汉堡披萨 | 21.15%",
-        },
-      ];
+          name: `${axis[index]} | ${percent}`,
+        });
+      });
       this.categoryOption = {
         title: [
           {
-            text: "品类分布",
+            text: `{this.radioSelect}分布`,
             textStyle: {
               fontSize: 14,
               color: "#666",
@@ -244,9 +225,55 @@ export default {
         (page - 1) * this.pageSize + this.pageSize
       );
     },
+    renderLineChart() {
+      const createOption = (key) => {
+        const data = [];
+        const axis = [];
+        this.wordCloud.forEach((item) => data.push(item[key]));
+        this.wordCloud.forEach((item) => axis.push(item.word));
+        console.log(data);
+        return {
+          tooltip: {},
+          xAxis: {
+            data: axis,
+            type: "category",
+            boundaryGap: false,
+          },
+          yAxis: {
+            show: false,
+            min: 0,
+            max: 10000,
+          },
+          series: [
+            {
+              type: "line",
+              areaStyle: {
+                color: "rgba(95,187,255,.5)",
+              },
+              data: data,
+              lineStyle: {
+                color: "rgba(95,187,255)",
+              },
+              itemStyle: {
+                opacity: 0,
+              },
+              smooth: true,
+            },
+          ],
+          grid: {
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+          },
+        };
+      };
+      this.searchUserOption = createOption("user");
+      this.searchNumberOption = createOption("count");
+    },
   },
   mounted() {
-    this.renderPieChart();
+    // this.renderPieChart();
   },
 };
 </script>
