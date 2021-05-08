@@ -10,25 +10,26 @@
             <div class="chart-inner">
               <div class="chart">
                 <div class="chart-title">搜索用户数</div>
-                <div class="chart-data">93,634</div>
+                <div class="chart-data">{{ searchCount }}</div>
                 <v-chart :option="searchUserOption" />
               </div>
               <div class="chart">
                 <div class="chart-title">搜索量</div>
-                <div class="chart-data">93,634,123</div>
+                <div class="chart-data">{{ userCount }}</div>
                 <v-chart :option="searchUserOption" />
               </div>
             </div>
             <div class="table-wrapper">
               <el-table :data="tableData">
-                <el-table-column prop="rank" label="排名" width="180" />
-                <el-table-column prop="keyword" label="关键字" width="180" />
-                <el-table-column prop="count" label="搜索量" width="180" />
+                <el-table-column prop="rank" label="排名" />
+                <el-table-column prop="keyword" label="关键字" />
+                <el-table-column prop="count" label="搜索量" />
                 <el-table-column prop="users" label="搜索用户数" />
+                <el-table-column prop="range" label="搜索占比" />
               </el-table>
               <el-pagination
-                :total="100"
-                :page-size="4"
+                :total="total"
+                :page-size="pageSize"
                 layout="prev,pager,next"
                 background
                 @current-change="onPageChange"
@@ -63,9 +64,15 @@
 
 
 <script>
+import commonDataMixin from "../../mixins/commonDataMixin";
 export default {
+  mixins: [commonDataMixin],
   data() {
     return {
+      searchCount: 0,
+      userCount: 0,
+      total: 0,
+      pageSize: 4,
       searchNumberOption: {},
       searchUserOption: {
         xAxis: {
@@ -100,47 +107,35 @@ export default {
           right: 0,
         },
       },
+      totalData: [],
       categoryOption: {},
       radioSelect: "品类",
-      tableData: [
-        {
-          id: 1,
-          rank: 1,
-          keyword: "北京",
-          count: 100,
-          users: 90,
-          range: "90%",
-        },
-        {
-          id: 1,
-          rank: 1,
-          keyword: "北京",
-          count: 100,
-          users: 90,
-          range: "90%",
-        },
-        {
-          id: 1,
-          rank: 1,
-          keyword: "北京",
-          count: 100,
-          users: 90,
-          range: "90%",
-        },
-        {
-          id: 1,
-          rank: 1,
-          keyword: "北京",
-          count: 100,
-          users: 90,
-          range: "90%",
-        },
-      ],
+      tableData: [],
     };
+  },
+  watch: {
+    wordCloud() {
+      const totalData = [];
+      this.wordCloud.forEach((item, index) => {
+        totalData.push({
+          id: index + 1,
+          rank: index + 1,
+          keyword: item.word,
+          count: item.count,
+          users: item.user,
+          range: `${((item.user / item.count) * 100).toFixed(2)}%`,
+        });
+      });
+      this.totalData = totalData;
+      this.total = this.totalData.length;
+      this.userCount = totalData.reduce((prev, next) => prev + next.users, 0);
+      this.searchCount = totalData.reduce((prev, next) => prev + next.count, 0);
+      this.renderTable(1);
+    },
   },
   methods: {
     onPageChange(page) {
-      console.log(page);
+      this.renderTable(page);
     },
     renderPieChart() {
       const mockData = [
@@ -242,6 +237,12 @@ export default {
           },
         },
       };
+    },
+    renderTable(page) {
+      this.tableData = this.totalData.slice(
+        (page - 1) * this.pageSize,
+        (page - 1) * this.pageSize + this.pageSize
+      );
     },
   },
   mounted() {
