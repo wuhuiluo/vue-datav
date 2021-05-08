@@ -95,6 +95,9 @@ export default {
         userGrowthLastMonth() {
             return wrapperPercentage(this.reportData, 'userGrowthLastMonth')
         },
+        userGrowthLastMonth1() {
+            return wrapperNumber(this.reportData, 'userGrowthLastMonth')
+        },
         orderFullYear() {
             return wrapperArray(this.reportData, 'orderFullYear')
         },
@@ -121,6 +124,9 @@ export default {
         },
         category2() {
             return wrapperObject(this.reportData, 'category.data2')
+        },
+        mapData() {
+            return this.getMapData()
         }
     },
     inject: ["getReportData", "getWordData", "getMapData"],

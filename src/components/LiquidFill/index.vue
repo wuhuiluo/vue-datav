@@ -4,6 +4,7 @@
 
 
 <script>
+import commonDataMixin from "../../mixins/commonDataMixin";
 import "echarts-liquidfill";
 function getColor(value) {
   return value[0] > 0 && value[0] <= 0.5
@@ -15,50 +16,55 @@ function getColor(value) {
     : "#c7c7cb";
 }
 export default {
-  mounted() {
-    const data = [0.45];
-    const chart = this.$echarts.init(document.getElementById("container"));
-    chart.setOption({
-      series: [
-        {
-          type: "liquidFill",
-          data,
-          radius: "80%",
-          amplitude: 8,
-          color: [getColor(data)],
-          label: {
-            formatter: (v) => {
-              return `${Math.floor(v.data * 100)}%`;
+  mixins: [commonDataMixin],
+  watch: {
+    userGrowthLastMonth1() {
+      const data = [this.userGrowthLastMonth1 / 1000];
+      const chart = this.$echarts.init(document.getElementById("container"));
+      chart.setOption({
+        series: [
+          {
+            type: "liquidFill",
+            data,
+            radius: "80%",
+            amplitude: 8,
+            color: [getColor(data)],
+            label: {
+              formatter: (v) => {
+                console.log(v);
+                return `${Math.floor(v.data * 100)}%`;
+              },
+              textStyle: {
+                fontSize: 36,
+                color: "#999",
+                fontWight: "normal",
+              },
+              position: ["50%", "50%"],
+              insideColor: "#fff",
             },
-            textStyle: {
-              fontSize: 36,
-              color: "#999",
-              fontWight: "normal",
+            outline: {
+              itemStyle: {
+                borderColor: "#aaa4a4",
+                borderWidth: 1,
+                color: "none",
+                shadowBlur: 0,
+                shadowColor: "#fff",
+              },
+              borderDistance: 0,
             },
-            position: ["50%", "50%"],
-            insideColor: "#fff",
-          },
-          outline: {
+            backgroundStyle: {
+              color: "#fff",
+            },
             itemStyle: {
-              borderColor: "#aaa4a4",
-              borderWidth: 1,
-              color: "none",
               shadowBlur: 0,
               shadowColor: "#fff",
             },
-            borderDistance: 0,
           },
-          backgroundStyle: {
-            color: "#fff",
-          },
-          itemStyle: {
-            shadowBlur: 0,
-            shadowColor: "#fff",
-          },
-        },
-      ],
-    });
+        ],
+      });
+    },
   },
+  mounted() {},
 };
 </script>
 

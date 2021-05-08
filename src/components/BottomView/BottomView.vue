@@ -45,7 +45,11 @@
           <div class="title-wrapper">
             <div class="title">分类销售排行</div>
             <div class="radio-wrapper">
-              <el-radio-group size="small" v-model="radioSelect">
+              <el-radio-group
+                @change="radioChange"
+                size="small"
+                v-model="radioSelect"
+              >
                 <el-radio-button label="品类"></el-radio-button>
                 <el-radio-button label="商品"></el-radio-button>
               </el-radio-group>
@@ -119,10 +123,17 @@ export default {
     },
   },
   methods: {
+    radioChange(type) {
+      this.radioSelect = type;
+      this.renderPieChart();
+    },
     onPageChange(page) {
       this.renderTable(page);
     },
     renderPieChart() {
+      if (!this.category1.data1 || !this.category2.data1) {
+        return;
+      }
       let data;
       let axis;
       let total = 0;
@@ -151,7 +162,7 @@ export default {
       this.categoryOption = {
         title: [
           {
-            text: `{this.radioSelect}分布`,
+            text: `${this.radioSelect}分布`,
             textStyle: {
               fontSize: 14,
               color: "#666",
@@ -161,7 +172,7 @@ export default {
           },
           {
             text: "累计订单量",
-            subtext: "320",
+            subtext: total,
             x: "33.5%",
             y: "46.5%",
             textAlign: "center",
@@ -179,7 +190,7 @@ export default {
           {
             name: "品类分布",
             type: "pie",
-            data: mockData,
+            data: chartData,
             label: {
               show: true,
               formatter: function (params) {
